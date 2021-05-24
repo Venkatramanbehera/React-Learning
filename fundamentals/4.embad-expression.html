@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+        <script type="text/babel">
+            const rootHandle = document.getElementById('root')
+            // const ele = <h1>The sum of 2 and 5 = {2+5} </h1>
+            const user = {
+                firstName : 'Hari',
+                lastName : 'Sahoo'
+            }
+            // const ele = <h1>Hello, {user.firstName} </h1>
+            const fullName = (user) => {
+                return `${user.firstName} ${user.lastName}`
+            }
+            const ele = <h1>Hello , {fullName(user)}</h1>
+            
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

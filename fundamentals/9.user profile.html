@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Profle Page </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <!-- all libraries -->
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+            const user = {
+                first_name : 'Joseph',
+                email : 'joseph@gmail.com',
+                avtar : 'https://i.picsum.photos/id/1/367/267.jpg?hmac=jZdc5TviQPVhxLyvyU8siO-I5FMVXVZpBhsBYKbBJpM'
+            }
+            const ele = (
+                <div>
+                    <h2>{user.first_name}</h2>
+                    <img src={user.avtar} alt={user.first_name}/>
+                    <p>{user.email}</p>
+                </div>
+            )
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>
