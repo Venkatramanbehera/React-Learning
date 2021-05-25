@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Social Media links </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+            const rootHandle = document.getElementById('root')
+
+            const link = [
+                { id: 1, name: 'facebook', url:'http://www.facebook.com'},
+                { id: 2, name: 'instagram', url:'http://www.instagram.com'},
+                { id: 3, name: 'twitter', url:'http://www.twitter.com'},
+            ]
+
+            const ele = (
+                <div>
+                    <h2> Total link :-{ link.length }</h2>
+                    <ul>
+                        { 
+                            link.map((ele) => {
+                            return (
+                                <li key={ele.id}> 
+                                    <a href={ele.url} target="_blank">{ele.name}</a> 
+                                </li>
+                                )
+                            }) 
+                        }
+                    </ul>
+                </div>
+            )
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>
