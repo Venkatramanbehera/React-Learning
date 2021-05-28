@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+            const users = [
+               { id: 1, email:'george@gmail.com', first_name:'George' ,avtar :'https://randomuser.me/api/portraits/men/32.jpg'},
+               { id: 2, email:'weaver@gmail.com', first_name:'Weaver' ,avtar :'https://randomuser.me/api/portraits/men/46.jpg'},
+               { id: 3, email:'wong@gmail.com', first_name:'Wong' ,avtar :'https://randomuser.me/api/portraits/men/36.jpg'},
+               { id: 4, email:'eve@gmail.com', first_name:'Eve' ,avtar :'https://randomuser.me/api/portraits/men/79.jpg'}
+           ]
+            function User(props){
+                return (
+                    <div>
+                        <img src={props.avtar} alt={props.name} />
+                        <h1>{ props.name }</h1>
+                        <hr/>
+                    </div>
+                )
+            }
+
+            const ele = (
+                <div>
+                    {
+                        users.map((ele) => {
+                            return <User key={ele.id} avtar={ele.avtar} name={ele.first_name}/>
+                        })
+                    }
+                </div>
+            )
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

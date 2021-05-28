@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+            const user1 = {
+                first_name : 'Joseph',
+                email : 'joseph@gmail.com',
+                avtar : 'https://i.picsum.photos/id/1/367/267.jpg?hmac=jZdc5TviQPVhxLyvyU8siO-I5FMVXVZpBhsBYKbBJpM'
+            }
+            const user2 = {
+                first_name : 'Wong',
+                email : 'wong@gmail.com',
+                avtar : 'https://i.picsum.photos/id/1/367/267.jpg?hmac=jZdc5TviQPVhxLyvyU8siO-I5FMVXVZpBhsBYKbBJpM'
+            }
+
+            function User(props){
+                // console.log(props)
+                return (
+                    <div>
+                        <img src={props.avtar} alt={props.name} />
+                        <h1>{ props.name }</h1>
+                        <hr/>
+                    </div>
+                )
+            }
+
+            const ele = (
+                <div>
+                    <User avtar={user1.avtar} name={user1.first_name}/>
+                    <User avtar={user2.avtar} name={user2.first_name}/>
+                </div>
+            )
+
+            ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>
