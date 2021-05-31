@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+            const users = [
+                { id:1, name:'user1', email:'u1@gmail.com'},
+                { id:2, name:'user2', email:'u2@gmail.com'},
+                { id:3, name:'user3', email:'u3@gmail.com'}
+            ]
+            /*
+                create a UserList component
+                pass users array as a prop to the component
+                return a list of users
+            */
+           function UserList(prop){
+               function view(user){
+                   alert(`Id -${user.id}, Name - ${user.name} ,Email-${user.email}`)
+               }
+               return (
+                   <ul>
+                        { prop.users.map((user) => {
+                            return <li key = {user.id}>{ user.name }<button onClick = {() => { view(user)}}>view</button></li>
+                        })}
+                    </ul>
+               )
+           }
+
+           const ele = <UserList users={users}/>
+
+           ReactDOM.render(ele, rootHandle)
+        </script>
+    </body>
+</html>

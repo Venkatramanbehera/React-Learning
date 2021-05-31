@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Events Using React </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            // function alertMe(){
+            //     alert('Hello there')
+            // }
+            // const ele = <button onClick={ alertMe }>Click Me!!!</button>
+
+
+
+                // Component
+            function GreetUser(props){
+                // callback function
+                function greet(){
+                    alert(`Hello ${props.name}`)
+                }
+                // alert('Hello'+props.name)
+                return (
+                    // listening events
+                    <button onClick = { greet }>Greet User</button>
+                    
+                    )
+            }
+
+            const ele = <GreetUser name="steve"/>
+
+            ReactDOM.render(ele,rootHandle)
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> 25. Events - Object</title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            function LinkGenerator(props){
+
+                function nextPage(e){
+                    console.log(e)
+                    e.preventDefault()
+                }
+                return (
+                    <a href={props.url} onClick={nextPage}>{props.name}</a>
+                    )
+            }
+
+            const ele = <LinkGenerator name="google" url="http://www.google.com" />
+
+            ReactDOM.render(ele,rootHandle)
+
+        </script>
+    </body>
+</html>
