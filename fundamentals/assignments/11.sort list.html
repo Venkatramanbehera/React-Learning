@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Sort According to first_name
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+           
+           const users =  [
+            { "id": 1, "email": "george@gmail.com", "first_name": "George", "avatar": "https://randomuser.me/api/portraits/men/32.jpg" },
+            { "id": 2, "email": "weaver@gmail.com", "first_name": "Weaver", "avatar": "https://randomuser.me/api/portraits/men/46.jpg" },
+            { "id": 3, "email": "wong@gmail.com", "first_name": "Wong", "avatar": "https://randomuser.me/api/portraits/men/36.jpg" },
+            { "id": 4, "email": "eve@gmail.com", "first_name": "Eve", "avatar": "https://randomuser.me/api/portraits/women/79.jpg" }
+        ]
+
+        function sort(users){
+            for(let j = 0; j<users.length; j++){
+                for(let i=1; i<users.length; i++){
+                    if(users[i].first_name[0].charCodeAt(0) < users[i-1].first_name[0].charCodeAt(0)){
+                        let temp = users[i]
+                        users[i] = users[j]
+                        users[j] = temp
+                    }
+                }
+            }
+            return users
+        }
+
+        const resultUser = sort(users)
+
+           const ele = (
+               <div>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Id</th>    
+                                <th>Avtar</th>    
+                                <th>Name</th>    
+                                <th>Email</th>    
+                            </tr>
+                        </thead>  
+                        <tbody>
+                            {
+                                resultUser.map((ele) => {
+                                    return (
+                                        <tr key={ele.id}>
+                                            <th>{ ele.id }</th>    
+                                            <th><img src={ele.avatar} /></th>    
+                                            <th>{ ele.first_name }</th>    
+                                            <th>{ ele.email }</th>    
+                                        </tr> 
+                                    )
+                                })
+                            }
+
+                        </tbody>  
+                    </table>
+                </div>
+           )
+
+           ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>
