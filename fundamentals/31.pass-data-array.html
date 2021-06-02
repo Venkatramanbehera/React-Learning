@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Pass Data Array  </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            function Parent(props){
+                const names = ["chiku", 'bhivu', 'raja', 'likun','sibu']
+                function getHug(name){
+                    alert(`${name} hug his parent`)
+                }
+                return(
+                    <div>
+                        <h1>Parent Component</h1>
+                        {
+                            names.map((ele, i) => {
+                                return <Child key={i} name={ele} func={ getHug }/>
+                            })
+                        }
+                    </div>
+                )
+            }
+
+            function Child(props){
+                return(
+                    <div>
+                        <h2>Child Component - {props.name}</h2>
+                        <button onClick={ () => {
+                            props.func(props.name)
+                        }}>Hug</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<Parent/>,rootHandle)
+
+        </script>
+    </body>
+</html>
