@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Sample Title 
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+           
+           function TagGenerator(props){
+               function str(){
+                    const str = prompt('Enter a string')
+                    let result = str[0].toUpperCase()
+                    for(let i=1; i<str.length; i++){
+                        if(str[i] === ' '){
+                            result += str[i+1].toUpperCase()
+                            i++
+                        }else{
+                            result += str[i]
+                        }
+                    }
+                    alert(`#${result}`)
+               }
+               return <button onClick={ str }>Enter a string</button>
+           }
+           
+           ReactDOM.render(<TagGenerator/>,rootHandle)
+        </script>
+    </body>
+</html>
