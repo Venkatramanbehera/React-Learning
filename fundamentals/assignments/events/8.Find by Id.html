@@ -26,17 +26,22 @@
             function FindElement(props){
                 function findById(data){
                     const inputId = Number(prompt('Enter the record'))
-                    let result = false
-                    for(let i=0; i<data.length; i++){
-                        if(inputId === data[i].id){
-                            result = true
-                            alert(`${data[i].title} - True`)
-                            break
-                        }
-                    }
-                    if(result === false){
-                        alert(`task with id - ${inputId} not found`)
-                    }
+                    // let result = false
+                    // for(let i=0; i<data.length; i++){
+                    //     if(inputId === data[i].id){
+                    //         result = true
+                    //         alert(`${data[i].title} - True`)
+                    //         break
+                    //     }
+                    // }
+                    // if(result === false){
+                    //     alert(`task with id - ${inputId} not found`)
+                    // }
+                    const result = data.find((ele) => {
+                        return inputId === ele.id
+                    })
+                    result !== 'undefined' ? alert(`${result.title} - ${result.isCompleted}`) : alert(`task with id - ${ inputId } not found`)
+
                 }
                 return <button onClick = {() => {findById(props.data)}}>find record by id</button>
             }

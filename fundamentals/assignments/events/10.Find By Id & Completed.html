@@ -27,26 +27,33 @@
             function TasksList(props){
                 function findTask(data){
                     const inputId = Number(prompt('Enter The id'))
-                    let isPresent = false
-                    for(let i=0; i<data.length; i++){
-                        if(inputId === data[i].id){
-                            alert(`${data[i].title} - true`)
-                            isPresent = true
-                            break
-                        }
-                    }
-                    if(isPresent === false){
-                        alert(`task with id - ${inputId} not found`)
-                    }
+                    // let isPresent = false
+                    // for(let i=0; i<data.length; i++){
+                    //     if(inputId === data[i].id){
+                    //         alert(`${data[i].title} - ${ data[i].isCompleted}`)
+                    //         isPresent = true
+                    //         break
+                    //     }
+                    // }
+                    // if(isPresent === false){
+                    //     alert(`task with id - ${inputId} not found`)
+                    // }
+                    const result = data.find((ele) => {
+                        return inputId === ele.id
+                    })
+                    result !== 'undefined' ? alert(`${result.title} - ${result.isCompleted}`) : alert(`task with id - ${ inputId } not found`)
                 }
 
                 function completedTask(data){
                     const result = data.filter((ele) => {
                         return ele.isCompleted
                     })
-                    let resultArray = []
-                    result.forEach((ele) => {
-                        resultArray.push(ele.title)
+                    // let resultArray = []
+                    // result.forEach((ele) => {
+                    //     resultArray.push(ele.title)
+                    // })
+                    const resultArray = result.map((ele) => {
+                        return ele.title
                     })
                     alert(resultArray)
                 }

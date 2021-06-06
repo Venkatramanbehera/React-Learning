@@ -29,9 +29,8 @@
                     const result = data.filter((ele) => {
                         return ele.isCompleted
                     })
-                    let resultArray = []
-                    result.forEach((ele) => {
-                        resultArray.push(ele.title)
+                    const resultArray = result.map((ele) => {
+                        return ele.title
                     })
                     alert(resultArray)
                 }
