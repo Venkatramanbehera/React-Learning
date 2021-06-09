@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            const IsVeg = (props) => {
+                return <img src="https://i.ibb.co/kQQyRwP/veg.png" alt="veg"/>
+            }
+
+            const IsNonVeg = (props) => {
+                return <img src="https://i.ibb.co/stN0gCz/non-veg.png" alt="non veg"/>
+            }
+
+            const ImagePic = props => {
+                return <img src={props.avtar} alt={ props.name }/>
+            }
+
+            const MenuItems = props => {
+                console.log(props)
+                const { isVeg,price,name } = props
+                return(
+                    <div>
+                        <h2>{ isVeg ? <IsVeg/> :<IsNonVeg/> } { name }</h2>
+                        <ImagePic avtar={props.image} name={props.name} /> 
+                        <p>price - { price }</p>
+                        <hr/>
+                    </div>
+                )
+            }
+
+            function App(props){
+                const menuItems = [
+                    { id: 1, name: 'Aloo Dum Biryani', price: 114, isVeg: true, image: 'https://i.ibb.co/MRr0V8h/aloo-biryani.png' },
+                    { id: 2, name: 'Chicken Kebab', price: 142, isVeg: false, image: 'https://i.ibb.co/nBxxxp6/chicken-kebab.png' },
+                    { id: 3, name: 'Chicken Lollipop', price: 153, isVeg: false, image: 'https://i.ibb.co/09YrZNn/chicken-lollipop.png' },
+                    { id: 4, name: 'Chicken Biryani', price: 148, isVeg: false, image: 'https://i.ibb.co/gv3FYqh/chicken-biryani.png' }
+                ]
+                return (
+                    <div>
+                        {
+                            menuItems.map((ele) => {
+                                return <MenuItems key={ ele.id } {...ele}/>
+                            })
+                        }   
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App/>, rootHandle)
+        </script>
+    </body>
+</html>

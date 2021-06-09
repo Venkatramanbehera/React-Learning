@@ -28,11 +28,10 @@
                 function compTask(data){
                     const result = data.filter((ele) => {
                         return ele.isCompleted
-                    })
-                    const resultArray = result.map((ele) => {
+                    }).map((ele) => {
                         return ele.title
                     })
-                    alert(resultArray)
+                    alert(result)
                 }
                 return <button onClick = {() => { compTask(props.data)}}> show completed tasks </button>
             }
