@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> show and hide </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+            const { useState } = React
+
+            function TextDisplay(props){
+                const [ status, setStatus] = useState(true)
+
+                // callback show button
+                const toggle = () => {
+                    const result = !status
+                    setStatus(result)
+                }
+                
+
+                return (
+                    <div>
+                        <h1>Show/hide</h1>   
+                        {
+                            status && <p>React is an open-source front-end JavaScript library for building user interfaces or UI components</p>
+                        } 
+                        <button onClick = { toggle }> { status ? 'Hide':'Show' } </button>
+                        
+                        
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<TextDisplay/>, rootHandle)
+
+        </script>
+    </body>
+</html>

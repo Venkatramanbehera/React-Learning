@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> track count click </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            const { useState } = React
+
+            function Track(props){
+                const [ count, setCount ] = useState(0)
+                const [ click, setClick ] = useState(0)
+                // callback
+                const increment = () => {
+                    setCount(count + 1)
+                    setClick(click + 1)
+                }
+                // callback
+                const decrement = () => {
+                    setClick( click + 1)
+                    setCount(count - 1)
+                }
+                return(
+                    <div>
+                        <h1> Track,count & click</h1> 
+                        <h2>Counts - { count } , Clicks - { click }</h2>   
+                        <button onClick={ increment }>up</button>
+                        <button onClick = { decrement }>down</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<Track/>,rootHandle)
+
+        </script>
+    </body>
+</html>

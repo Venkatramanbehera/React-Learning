@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            const { useState } = React
+
+            // const ReactArticle = (props) => {
+            //     const [ rstatus, setRstatus] = useState(true)
+            //     const toggle = ()=>{
+            //         const result = !rstatus
+            //         setRstatus(result)
+            //     }
+            //     return(
+            //         <div>
+            //             {
+            //                 rstatus && <p>{ props.body }</p> 
+            //             }
+            //              <button onClick = { toggle }> { rstatus ? 'Hide' : 'Show'} - { props.title }</button>  
+            //         </div>
+            //     )
+            // }
+
+            // const JavascriptArticle = (props) => {
+            //     const [ jstatus, setJstatus] = useState(true)
+            //     const toggle = ()=>{
+            //         const result = !jstatus
+            //         setJstatus(result)
+            //     }
+            //     return (
+            //         <div>
+            //             {
+            //                 jstatus && <p>{ props.body }</p>
+            //             }
+            //             <button onClick = { toggle }> { jstatus ? 'Hide' : 'Show'} - { props.title }</button>   
+            //         </div>
+            //     )
+            // }
+
+            // const NodejsArticle = (props) => {
+            //     const [ nstatus, setNstatus] = useState(true)
+            //     const toggle = ()=>{
+            //         const result = !nstatus
+            //         setNstatus(result)
+            //     }
+            //     return (
+            //         <div>
+            //             {
+            //                 nstatus && <p>{ props.body }</p>
+            //             }
+            //             <button onClick = { toggle }> { nstatus ? 'Hide' : 'Show'} - { props.title }</button>   
+            //         </div>
+            //     )
+            // }
+            const TextDisplay = props => {
+                const [ state, setState ] = useState(true)
+                const { title, body } = props
+                const toggle = () => {
+                    const result = !state
+                    setState(result)
+                }
+                return (
+                    <div>
+                        { state && <p> { body } </p>  }
+                        <button onClick = { toggle }> { state ? 'Hide' : 'Show' }-{ title }</button>    
+                    </div>
+                )
+            }
+
+            function App(props){
+                const articles = [
+                    {
+                        title : 'React Article',
+                        body : 'React is an open-source front-end JavaScript library for building user interfaces or UI components. It is maintained by Facebook and a community of individual developers and companies'
+                    },
+                    {
+                        title : 'Javascript Article',
+                        body : 'JavaScript, often abbreviated as JS, is a programming language that conforms to the ECMAScript specification. JavaScript is high-level, often just-in-time compiled, and multi-paradigm. It has curly-bracket syntax, dynamic typing, prototype-based object-orientation, and first-class functions.'
+                    },
+                    {
+                        title : 'Nodejs Article',
+                        body : 'Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser.'
+                    }
+                ]
+                return (
+                    <div>
+                        <h1>Show/Hide - many</h1> 
+                        {
+                            articles.map((ele,i) => {
+                                return <TextDisplay key = { i } {...ele}/>
+                            })
+                        }
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App/>,rootHandle)
+
+        </script>
+    </body>
+</html>
