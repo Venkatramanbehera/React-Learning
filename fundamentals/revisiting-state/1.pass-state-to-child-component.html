@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Pass State To Child Component </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+            const { useState } = React
+
+            const PriceDetails = (props) => {
+                // console.log(props)
+                const { totalItems, cartTotal } = props
+                const deliveryCharge = 50
+                return (
+                    <div>
+                        <h3> Price Details </h3>  
+                        <b> Price ({ totalItems } items) - { cartTotal }</b>  <br/>
+                        <b> Delivery Charge - { deliveryCharge }</b> <br/>
+                        <b> Total - { cartTotal + deliveryCharge }</b>
+                    </div>
+                )
+            }
+
+            const CartItem = (props) => {
+                const { id, name, price, quantity } = props
+                return(
+                    <div>
+                        <b> { name } </b>    
+                        <p>INR - { price } </p>  
+                        <button> - </button> { quantity } <button> + </button>
+                        <button>Remove</button>
+                        <hr/>
+                    </div>
+                )
+            }
+
+            const MyCart = (props) => {
+                const [ products, setProducts ] = useState([
+                    { id : 1, name : 'marker', price : 10, quantity : 1 },
+                    { id : 2, name : 'scale', price : 5, quantity : 1 },
+                ])
+                const calc = () => {
+                    let sum = 0
+                    products.forEach((product)=> {
+                        sum += product.price * product.quantity
+                    })
+                    return sum
+                }
+                return (
+                    <div>
+                        <h2>My Cart({ products.length })</h2>
+                        {
+                            products.map((product) => {
+                                return <CartItem key={ product.id } { ...product }/>
+                            })
+                        }
+                        <PriceDetails totalItems = { products.length } cartTotal = { calc() }/>
+                    </div>
+                )
+            }
+
+            function App(props) {
+
+                return(
+                    <div>
+                        <h1>Cart Page</h1>
+                        <hr/>
+                        <MyCart/>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App/>,rootHandle)
+
+        </script>
+    </body>
+</html>
