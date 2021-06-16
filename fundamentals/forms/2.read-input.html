@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Read Input </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+            const { useState } = React 
+
+            function UserInfo(props){
+
+                // state variable
+                const [ userName, setUserName ] = useState('')
+                const [bio, setBio] = useState('')
+
+                // callback for username
+                const changeUserName = (e) => {
+                    const input = e.target.value
+                    setUserName(input)
+                }
+
+                // callback for bio
+                const changeBio = (e) => {
+                    const input = e.target.value
+                    setBio(input)
+                }
+                return (
+                    <div>
+                        <h1> { userName } </h1>
+                        <p> { bio }  </p>
+                        <form>
+                            <label> Username </label> <br/>
+                            <input type="text" value={ userName } onChange={ changeUserName }/> <br/>
+
+                            <label> bio </label> <br/>
+                            <textarea value={ bio } onChange={ changeBio }></textarea>
+                        </form> 
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<UserInfo/>, rootHandle)
+
+        </script>
+    </body>
+</html>

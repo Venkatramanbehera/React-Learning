@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> select tag </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            const { useState } = React 
+
+            function UserLaptop(props) {
+
+                const [username, setUsername] = useState('')
+                const [ laptop , setLaptop ] = useState('')
+                const [ toggle, setToggle ] = useState(false)
+
+                const laptops = ['Hp','Acer','Dell','Samsung','Asus','Apple']
+
+                const handleUsername = (e) => {
+                    const input = e.target.value 
+                    setUsername(input)
+                }
+
+                const handleLaptopChange = (e) => {
+                    const laptopInput= e.target.value
+                    setLaptop(laptopInput)
+                }
+
+                const handleSubmit = (e) => {
+                    e.preventDefault()
+                    setToggle(!toggle)
+                }
+                
+                return (
+                    <div>
+                        { toggle && <h1>{ username }'s { laptop } laptop</h1> }
+                        <form onSubmit={ handleSubmit }>
+                            <label> Username </label> <br/>
+                            <input type="text" value={ username } onChange = { handleUsername }/>   <br/>
+                            <label> laptop </label> <br/>
+                            <select value={ laptop } onChange = { handleLaptopChange }>
+                                <option value=""> select brand </option>    
+                                {
+                                    laptops.sort().map((ele,i)=> {
+                                        return <option key={i} value={ele}>{ ele }</option>
+                                    })
+                                }    
+                            </select> 
+                            <br/>
+                            <input type="submit" value="save user preferance"/>
+                        </form> 
+                    </div>
+                    
+                )
+            }
+
+            ReactDOM.render(<UserLaptop/>,rootHandle)
+
+        </script>
+    </body>
+</html>

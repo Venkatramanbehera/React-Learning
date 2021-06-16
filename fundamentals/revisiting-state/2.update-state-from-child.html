@@ -87,7 +87,7 @@
 
                 // callback decrement Quantity
                 const decQuantity = (id) => {
-                    // console.log(id)
+                    
                     const result = products.map((product)=>{
                         if(product.id === id){
                             return { ...product, ...{ quantity : product.quantity - 1}}

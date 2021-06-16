@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Check Box </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            const { useState } = React
+
+            function TableReservation(props){
+                const [ username, setUsername ] = useState('')
+                const [ vegOption, setVegOption ] = useState(false)
+
+                const usernameHandler = (e) => {
+                    const input = e.target.value
+                    setUsername(input)
+                }
+
+                const handleVegOption = (e) => {
+                    const result = e.target.checked
+                    setVegOption(result)
+                }
+
+                const handleSubmit = (e) => {
+                    e.preventDefault()
+                    alert(`${ username } - Veg preference ${ vegOption ? 'Yes' : 'No' }`)
+                }
+                
+                return(
+                    <form onSubmit={ handleSubmit }>
+                        <label> Username </label> <br/>
+                        <input type="text" value={ username } onChange={ usernameHandler }/> <br/>
+
+                        <label > Veg only </label> <br/>
+                        <input type="checkbox" checked={ vegOption } onChange={ handleVegOption }/> <br/>
+
+                        <input type="submit" value="reserve"/>    
+                    </form>
+                )
+            }
+
+            ReactDOM.render(<TableReservation/>,rootHandle)
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Enquiry Form </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            const { useState } = React 
+
+            function Enquiry(props){
+
+                // state variables
+
+                const [name, setName] = useState(' ')
+                const [email, setEmail ] = useState(' ')
+                const [message, setMessage ] = useState(' ')
+                const [profession, setProfession] = useState(' ')
+                const [gender, setGender] = useState(' ')
+                const [agree,setAgree] = useState(false)
+                const [showMsgInfo, setShowMsgInfo] = useState(false)
+
+                // callbacks
+
+                const handleChangeName = (e) => {
+                    const input = e.target.value
+                    setName(input)
+                }
+
+                const handleChangeEmail = (e) => {
+                    const input = e.target.value
+                    setEmail(input)
+                }
+
+                const handleChangeMessage = (e) => {
+                    const input = e.target.value 
+                    setMessage(input)
+                }
+
+                const handleChangeProfession = (e) => {
+                    const selectInput = e.target.value
+                    setProfession(selectInput)
+                }
+
+                const handleChangeGender = (e) => {
+                    const result = e.target.value
+                    setGender(result)
+                }
+
+                const handleChangeAgree = (e) => {
+                    const ag = e.target.checked
+                    setAgree(ag)
+                }
+
+                const handleFocusMessage = () => {
+                    setShowMsgInfo(true)
+                }
+
+                const handleBlurMessage = () => {
+                    setShowMsgInfo(false)
+                }
+
+                const handleSubmit = (e) => {
+                    e.preventDefault()
+                    const formData = {
+                        name : name,
+                        email : email,
+                        message : message,
+                        profession : profession,
+                        gender : gender,
+                        accept : agree
+                    }
+
+                    console.log('form data',formData)
+                }
+
+                
+                return (
+                    <div>
+                        <h2>Enquiry Form</h2> 
+                        
+                        <form onSubmit={ handleSubmit }>
+
+
+                            <label> Name </label>   <br/> 
+                            <input type="text" value={ name } onChange={ handleChangeName }/> <br/>
+
+
+                            <label> Email </label>    <br/> 
+                            <input type="email" value={ email } onChange={ handleChangeEmail }/> <br/>
+
+
+                            <label> Message </label>    <br/> 
+                            <textarea value={ message } onChange={ handleChangeMessage } onFocus={ handleFocusMessage } onBlur={ handleBlurMessage } rows="3"></textarea>
+                            { showMsgInfo && <span>You have to add about your school backgrounds.</span> }
+                            <br/>
+
+
+                            <label> Profession </label>    <br/> 
+                            <select value={ profession } onChange={ handleChangeProfession}  >
+                                <option value="">status</option>    
+                                <option value="Working">Working</option>    
+                                <option value="NonWorking">NonWorking</option>    
+                            </select> <br/>
+
+
+                            <label> Gender </label>    <br/> 
+                            <input type="radio" value = 'male' name="gender" onChange={ handleChangeGender }/> Male
+                            <input type="radio" value = 'female' name="gender" onChange={ handleChangeGender } /> Female   <br/>
+
+
+                            <input type="checkbox" checked={ agree } onChange={ handleChangeAgree }/> I Agree to Terms & Condition <br/>
+                            <input type="submit" />
+                        </form>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<Enquiry/>, rootHandle)
+
+        </script>
+    </body>
+</html>

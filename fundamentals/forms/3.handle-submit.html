@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            const { useState } = React 
+
+
+            function MyName(props){
+
+                const [ name, setName ] = useState('')
+
+                // name input callback
+                const changeName = (e) => {
+                    const input = e.target.value
+                    setName(input)
+                }
+
+                // onsubmit callback
+                const handleSubmit = (e) => {
+                    e.preventDefault()
+                    alert(`${ name } has ${ name.length } length`)
+                }
+                return (
+                    <form onSubmit = { handleSubmit } >
+                        <label>Enter Your Name </label>    <br/>
+                        <input type="text" value = { name } onChange = { changeName }/> <br/>
+                        <input type="submit" value="calc length"/>
+                    </form>
+                )
+            }
+
+            ReactDOM.render(<MyName/>, rootHandle)
+
+        </script>
+    </body>
+</html>
