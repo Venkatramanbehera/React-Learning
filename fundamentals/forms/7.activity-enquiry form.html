@@ -11,6 +11,7 @@
         <script src="../js/react.development.js"></script>
         <script src="../js/react-dom.development.js"></script>
         <script src="../js/babel.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.6.0/validator.min.js"></script>
 
         <script type="text/babel">
 
@@ -29,32 +30,52 @@
                 const [gender, setGender] = useState(' ')
                 const [agree,setAgree] = useState(false)
                 const [showMsgInfo, setShowMsgInfo] = useState(false)
+                const [formErrors, setFormErrors] = useState({  })
+
+                // local variable
+
+                const errors = {}
 
                 // callbacks
 
-                const handleChangeName = (e) => {
-                    const input = e.target.value
-                    setName(input)
-                }
+                // const handleChangeName = (e) => {
+                //     const input = e.target.value
+                //     setName(input)
+                // }
 
-                const handleChangeEmail = (e) => {
-                    const input = e.target.value
-                    setEmail(input)
-                }
+                // const handleChangeEmail = (e) => {
+                //     const input = e.target.value
+                //     setEmail(input)
+                // }
 
-                const handleChangeMessage = (e) => {
-                    const input = e.target.value 
-                    setMessage(input)
-                }
+                // const handleChangeMessage = (e) => {
+                //     const input = e.target.value 
+                //     setMessage(input)
+                // }
 
-                const handleChangeProfession = (e) => {
-                    const selectInput = e.target.value
-                    setProfession(selectInput)
-                }
+                // const handleChangeProfession = (e) => {
+                //     const selectInput = e.target.value
+                //     setProfession(selectInput)
+                // }
 
-                const handleChangeGender = (e) => {
-                    const result = e.target.value
-                    setGender(result)
+                // const handleChangeGender = (e) => {
+                //     const result = e.target.value
+                //     setGender(result)
+                // }
+
+                const handleChange = (e) => {
+                    const attr = e.target.name
+                    if(attr === 'name'){
+                        setName(e.target.value)
+                    }else if( attr === 'email'){
+                        setEmail(e.target.value)
+                    }else if( attr === 'profession'){
+                        setProfession(e.target.value)
+                    }else if( attr === 'message'){
+                        setMessage(e.target.value)
+                    }else if( attr === 'gender'){
+                        setGender(e.target.value)
+                    }
                 }
 
                 const handleChangeAgree = (e) => {
@@ -70,21 +91,51 @@
                     setShowMsgInfo(false)
                 }
 
-                const handleSubmit = (e) => {
-                    e.preventDefault()
-                    const formData = {
-                        name : name,
-                        email : email,
-                        message : message,
-                        profession : profession,
-                        gender : gender,
-                        accept : agree
+                const runValidation = () => {
+                    // name
+                    if(name.trim().length === 0){
+                        errors.name = "name can't be empty"
                     }
 
-                    console.log('form data',formData)
+                    // email
+                    if(email.trim().length === 0){
+                        errors.email = "email can't be empty"
+                    }else if(!validator.isEmail(email.trim())){
+                        errors.email = "invalid email format"
+                    }
                 }
 
-                
+                const handleSubmit = (e) => {
+                    e.preventDefault()
+
+
+                    runValidation()
+
+                    if(Object.keys(errors).length === 0){
+                        setFormErrors({})
+                        const formData = {
+                            name : name,
+                            email : email,
+                            message : message,
+                            profession : profession,
+                            gender : gender,
+                            accept : agree
+                        }
+                        console.log('form data',formData)
+
+                        setName('')
+                        setEmail('')
+                        setMessage('')
+                        setProfession('')
+                        setGender('')
+                        setAgree(false)
+                    }else{
+                        console.log('form errors',errors)
+                        setFormErrors(errors)
+                        }
+                }
+    
+    
                 return (
                     <div>
                         <h2>Enquiry Form</h2> 
@@ -93,21 +144,25 @@
 
 
                             <label> Name </label>   <br/> 
-                            <input type="text" value={ name } onChange={ handleChangeName }/> <br/>
+                            <input type="text" value={ name } onChange={ handleChange } name="name"/> 
+                            { formErrors.name && <span style={{color:'red'}}> { formErrors.name } </span> }
+                            <br/>
 
 
                             <label> Email </label>    <br/> 
-                            <input type="email" value={ email } onChange={ handleChangeEmail }/> <br/>
+                            <input type="text" value={ email } onChange={ handleChange } name="email"/> 
+                            { formErrors.email && <span style={{color:'red'}}> { formErrors.email } </span> }
+                            <br/>
 
 
                             <label> Message </label>    <br/> 
-                            <textarea value={ message } onChange={ handleChangeMessage } onFocus={ handleFocusMessage } onBlur={ handleBlurMessage } rows="3"></textarea>
+                            <textarea value={ message } onChange={ handleChange } onFocus={ handleFocusMessage } onBlur={ handleBlurMessage } rows="3" name="message"></textarea>
                             { showMsgInfo && <span>You have to add about your school backgrounds.</span> }
                             <br/>
 
 
                             <label> Profession </label>    <br/> 
-                            <select value={ profession } onChange={ handleChangeProfession}  >
+                            <select value={ profession } onChange={ handleChange}  name="profession">
                                 <option value="">status</option>    
                                 <option value="Working">Working</option>    
                                 <option value="NonWorking">NonWorking</option>    
@@ -115,12 +170,12 @@
 
 
                             <label> Gender </label>    <br/> 
-                            <input type="radio" value = 'male' name="gender" onChange={ handleChangeGender }/> Male
-                            <input type="radio" value = 'female' name="gender" onChange={ handleChangeGender } /> Female   <br/>
+                            <input type="radio" value = 'male' name="gender" checked={ gender === 'male' } onChange={ handleChange } /> Male
+                            <input type="radio" value = 'female' name="gender" checked={ gender === 'female'} onChange={ handleChange } /> Female   <br/>
 
 
                             <input type="checkbox" checked={ agree } onChange={ handleChangeAgree }/> I Agree to Terms & Condition <br/>
-                            <input type="submit" />
+                            <input type="submit" disabled= { !agree } />
                         </form>
                     </div>
                 )
