@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Optimize useEffect  </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+
+            const rootHandle = document.getElementById('root')
+
+            const { useState, useEffect } = React
+
+            
+            function App(props){
+                const [ maleCount, setMaleCount ] = useState(0)
+                const [ femaleCount, setFemaleCount ] = useState(0)
+
+                const maleIncrement = () => {
+                    setMaleCount(maleCount + 1)
+                }
+
+                const femaleIncrement = () => {
+                    setFemaleCount( femaleCount + 1)
+                }
+
+                useEffect(() => {
+                    alert('male count ')
+                },[maleCount])
+
+                useEffect(() => {
+                    alert('female count')
+                },[femaleCount])
+
+                return(
+                    <div>
+                        <h2> male count - { maleCount }, female count - { femaleCount } </h2>
+                        <button onClick={ maleIncrement }>+1 male</button> 
+                        <button onClick={ femaleIncrement  }>+1 female</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App/>, rootHandle)
+
+        </script>
+    </body>
+</html>
