@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mouse Events</title>
+    </head>
+    <body>
+        <button id="clickEvent">Click Events</button> <br>
+        <button id="dblClickEvent">Double Click Events</button> <br>
+        <button id="mouseEnter">Mouse Enter </button> <br>
+        <button id="mouseLeave">Mouse Leave</button> <br>
+        <button id="mouseDown">Mouse Down</button> <br>
+        <button id="mouseUp">Mouse Up</button> <br>
+
+        <script>
+            // function func1(){
+            //     console.log('click event occures')
+            // }
+                const buttonClick = document.querySelector('#clickEvent')
+                // console.log(buttonClick)
+                buttonClick.addEventListener('click',() => {
+                    console.log('click events occured')
+                })
+
+                const dbButtonClick = document.querySelector('#dblClickEvent')
+                dbButtonClick.addEventListener('dblclick', ()=>{
+                    console.log('double click event ocure')
+                })
+
+                const mouseEnterButton = document.querySelector('#mouseEnter')
+                mouseEnterButton.addEventListener('mouseenter', () =>{
+                    console.log('mouse enter events occure')
+                })
+
+                const mouseLeaveBtn = document.querySelector('#mouseLeave')
+                mouseLeaveBtn.addEventListener('mouseleave',() =>{
+                    console.log('mouse leave event occures')
+                })
+
+                const mouseDownBtn = document.querySelector('#mouseDown')
+                mouseDownBtn.addEventListener('mousedown', () => {
+                    console.log('mouse down event occures')
+                })
+
+                const mouseUpBtn = document.querySelector('#mouseUp')
+                mouseUpBtn.addEventListener('mouseup', () => {
+                    console.log('mouse up event occures')
+                })
+        </script>
+    </body>
+</html>

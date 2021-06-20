@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Words & Counter</title>
+    </head>
+    <body>
+        <form>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name"> <br>
+            <input type="submit">
+        </form>
+        <h1 id="result"></h1>
+        <script>
+            const form = document.querySelector('form')
+            const h1Ele = document.querySelector('#result')
+            form.addEventListener('submit',(e)=>{
+                e.preventDefault()
+                const name = e.target.name.value 
+                // console.log(name)
+                const count = name.length
+
+                const res = name.split(' ')
+                // console.log(res.length)
+                
+                h1Ele.textContent = `total char = ${count} & total word = ${res.length}`
+                
+            })
+        </script>
+    </body>
+</html>

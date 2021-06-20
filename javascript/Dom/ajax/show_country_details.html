@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Display Population latitude and longitude</title>
+    </head>
+    <body>
+        <h1 id="h1Handle"></h1>
+        <ul id="ulHandle"></ul>
+        <script>
+            const h1Handle = document.querySelector('#h1Handle')
+            const ulHandle = document.querySelector('#ulHandle')
+            window.onload = function (){
+                const xhr = new XMLHttpRequest()
+                xhr.open('GET','https://restcountries.eu/rest/v2/all?fields=name;capital;population;latlng')
+                xhr.send()
+
+                xhr.onload = function(){
+                    const data = JSON.parse(xhr.responseText)
+                    
+                    h1Handle.textContent = `Listing countries - ${data.length}`
+
+                    data.forEach((ele) => {
+                        const liTag = document.createElement('li')
+                        const button = document.createElement('button')
+                        button.textContent = 'show'
+                        liTag.textContent = `${ele.name}`
+                        const capital = ele.capital
+                        const population = ele.population
+                        // console.log(population)
+                        const lat = ele.latlng
+                        // console.log(lat)
+                        button.setAttribute('onclick',`show('${capital}','${population}','${lat}')`)
+                        liTag.appendChild(button)
+                        ulHandle.appendChild(liTag)
+                    }) 
+
+                }
+                
+                xhr.onerror = function (){
+                    console.log('some error ocured')
+                }
+                
+            }
+            function show(c,p,l){
+                // console.log(c,p,l)
+                alert(`capital - ${c}, population - ${p}, position - (${l})`)
+            }
+        </script>
+    </body>
+</html>

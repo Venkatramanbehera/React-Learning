@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Get Element By Tag name</title>
+    </head>
+    <body>
+        <h1>Completed Task</h1>
+        <ul>
+            <li>Requirement</li>
+            <li>Development</li>
+            <li>Deployment</li>
+        </ul>
+        <script>
+            const elements = document.getElementsByTagName('li')
+            // console.log(elements)
+            for( const ele of elements){
+                // console.log( ele.textContent )
+                ele.style.textDecoration = 'line-through'
+            }
+        </script>
+    </body>
+</html>

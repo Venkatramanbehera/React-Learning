@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pionts</title>
+    </head>
+    <body>
+        <script>
+            console.log(typeof localStorage)
+            localStorage.setItem('name','chiku')
+            localStorage.setItem('age',22)
+            localStorage.setItem('ages',true)
+            localStorage.setItem('contacts',JSON.stringify({ 'number':8658422355,'email':'v@gmail.com'}))
+            localStorage.setItem('skils',JSON.stringify(['js','react','node','angular']))
+            console.log(localStorage)
+
+            const parsedItem = JSON.parse(localStorage.getItem('contacts'))
+            console.log(parsedItem)
+
+            const parsedItemArray = JSON.parse(localStorage.getItem('skils'))
+            console.log(parsedItemArray)
+        </script>
+    </body>
+</html>

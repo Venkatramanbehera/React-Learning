@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Country</title>
+    </head>
+    <body>
+        <h1 id="h1Handle"></h1>
+        <ul id="ulHandle"></ul>
+        <script>
+            const h1Handle = document.querySelector('#h1Handle')
+            const ulHandle = document.querySelector('#ulHandle')
+            window.onload = function (){
+                const xhr = new XMLHttpRequest()
+                xhr.open('GET','https://restcountries.eu/rest/v2/all?fields=name;capital')
+                xhr.send()
+
+                xhr.onload = function(){
+                    const data = JSON.parse(xhr.responseText)
+                    
+                    h1Handle.textContent = `Listing countries - ${data.length}`
+
+                    data.forEach((ele) => {
+                        const liTag = document.createElement('li')
+                        liTag.textContent = `${ele.name} - ${ele.capital}`
+                        ulHandle.appendChild(liTag)
+                    }) 
+                }
+                
+                xhr.onerror = function (){
+                    console.log('some error ocured')
+                }
+            }
+
+        </script>
+    </body>
+</html>

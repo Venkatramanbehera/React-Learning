@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Display On Click</title>
+    </head>
+    <body>
+        <button onclick="fetch(event)">Fetch Data</button>
+        <h1 id="h1Handle"></h1>
+        <ul id="ulHandle"></ul>
+        <script>
+            const h1Handle = document.querySelector('#h1Handle')
+            const ulHandle = document.querySelector('#ulHandle')
+            let data
+            function fetch(e){
+                e.preventDefault()
+                const xhr = new XMLHttpRequest()
+                xhr.open('GET','https://restcountries.eu/rest/v2/all?fields=name;capital')
+                xhr.send()
+                
+                if(data === undefined){
+
+                    xhr.onload = function(){
+                        data = JSON.parse(xhr.responseText) 
+                        h1Handle.textContent = `Listing countries - ${data.length}`
+
+                        data.forEach((ele) => {
+                            const liTag = document.createElement('li')
+                            liTag.textContent = `${ele.name} - ${ele.capital}`
+                            ulHandle.appendChild(liTag)
+                        })
+                    }
+
+                }else{
+                   data = undefined
+                   h1Handle.textContent=''
+                   ulHandle.innerHTML=''
+                }
+                
+            }
+        </script>
+    </body>
+</html>

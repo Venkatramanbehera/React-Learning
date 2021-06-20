@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>what day is it?</title>
+    </head>
+    <body>
+        <h1></h1>
+        <button onclick="displayDay()">display day</button>
+        <script>
+            const h1Handle = document.querySelector('h1')
+            function displayDay(){
+                const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday']
+                const toDay = new Date()
+                // console.log(days[toDay.getDay()])
+                h1Handle.textContent = days[toDay.getDay()]
+            }
+        </script>
+    </body>
+</html>

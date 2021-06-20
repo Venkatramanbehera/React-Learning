@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LocalStorage</title>
+    </head>
+    <body>
+        <h1>Working with Local Storage</h1>
+        <script>
+            console.log(localStorage)
+            // set a value
+            localStorage.setItem('name','chiku')
+            localStorage.setItem('city','deogarh')
+
+            console.log(localStorage.length)
+
+            // get a value
+            console.log(localStorage.getItem('name'))
+            console.log(localStorage.getItem('address'))
+
+            // remove item
+            localStorage.removeItem('city')
+            console.log(localStorage)
+
+            // clear local storage
+            localStorage.clear()
+            console.log(localStorage)
+        </script>
+    </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact Manager</title>
+    </head>
+    <body>
+        <form>
+            <label for="username">Name</label>
+            <input type="text" name="username" id="username" placeholder="Enter Name"> <br>
+            <label for="number">Mobile</label>
+            <input type="text" name="number" id="number" placeholder="Enter Number"> <br>
+            <input type="submit" value="Add">
+        </form>
+        <script>
+            const h1Tag = document.createElement('h1')
+            h1Tag.textContent = 'Contact Manager'
+
+            const form = document.querySelector('form')
+            const body = document.querySelector('body')
+            body.insertBefore(h1Tag,form)
+
+            const contacts = [
+                { id: 1, name: 'abhijit', mobile: '9876543211'},
+                { id: 2, name: 'sagar', mobile: '8765432112'},
+                { id: 3, name: 'sumit', mobile: '7654321123'}
+            ]
+
+            const h2Tag = document.createElement('h2')
+            h2Tag.textContent = `Listing Contact - ${contacts.length}`
+            body.appendChild(h2Tag)
+
+            const inputTag = document.createElement('input')
+            inputTag.setAttribute('placeholder','Enter Name')
+            inputTag.setAttribute('name','name')
+            inputTag.setAttribute('id','name')
+            body.appendChild(inputTag)
+
+            const ulTag = document.createElement('ul')
+            ulTag.style.listStyleType = 'none'
+            contacts.forEach((ele) => {
+                const liTag = document.createElement('li')
+                liTag.textContent = `${ele.name} - ${ele.mobile}`
+                ulTag.appendChild(liTag)
+            })
+            body.appendChild(ulTag)
+
+            form.addEventListener('submit',(e) => {
+                e.preventDefault()
+                const userName = e.target.username.value
+                const mobile = e.target.number.value
+                let idG = contacts.length + 1
+                const obj = {
+                    id : idG,
+                    name : userName,
+                    mobile : mobile
+                }
+                contacts.push(obj)
+                ulTag.innerHTML = ''
+                contacts.forEach((ele) => {
+                    const liTag = document.createElement('li')
+                    liTag.textContent = `${ele.name} - ${ele.mobile}`
+                    ulTag.appendChild(liTag)
+                })
+                e.target.username.value = ''
+                e.target.number.value = ''
+            })
+
+            inputTag.addEventListener('keyup',(e)=>{
+                const input = e.target.value
+                const result = contacts.filter((ele) => {
+                    return ele.name.includes(input)
+                })
+                // console.log(result)
+                ulTag.innerHTML = ''
+                result.forEach((ele) => {
+                    const liTag = document.createElement('li')
+                    liTag.textContent = `${ele.name} - ${ele.mobile}`
+                    ulTag.appendChild(liTag)
+                })
+            })
+        </script>
+    </body>
+</html>

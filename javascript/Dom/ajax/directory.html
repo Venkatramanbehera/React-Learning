@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Country Directory</title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+        <script>
+            let resultArray = []
+            const rootHandle = document.querySelector('#root')
+            const pTag = document.createElement('p')
+            rootHandle.appendChild(pTag)
+            const h1Tag = document.createElement('h1')
+            rootHandle.appendChild(h1Tag)
+            const ulTag = document.createElement('ul')
+            ulTag.style.listStyleType = 'none'
+            rootHandle.appendChild(ulTag)
+            window.onload = function(){
+                const xhr = new XMLHttpRequest()
+                xhr.open('GET','https://restcountries.eu/rest/v2/all')
+                xhr.send()
+
+                xhr.onload = function(){
+                    const data = JSON.parse(xhr.responseText) 
+                    
+                    resultArray = data
+                    // console.log(resultArray)
+                }
+            }
+            
+            const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+            alphabets.forEach((ele) => {
+                // console.log(resultArray)
+                const aTag = document.createElement('a')
+                aTag.textContent = ` ${ele}`
+                aTag.href = '#'
+                pTag.appendChild(aTag)
+                
+                aTag.addEventListener('click',()=>{
+                    // for removing previous element
+                    // console.log(resultArray)
+                    ulTag.innerHTML = ''
+                    const result = resultArray.filter((res) => {
+                        return res.name.charAt(0) === ele
+                    })
+                    h1Tag.textContent = `Listing ${result.length} coutries`
+                    result.forEach((ele) => {
+                        const liTag = document.createElement('li')
+                        liTag.textContent = ele.name
+                        ulTag.appendChild(liTag)
+                    }) 
+                })
+            })
+        </script>
+    </body>
+</html>

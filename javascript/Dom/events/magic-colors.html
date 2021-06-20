@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Magic colors</title>
+    </head>
+    <body>
+        <button>click me</button>
+        <script>
+            const btn = document.querySelector('button')
+            const body =  document.querySelector('body')
+            btn.addEventListener('click',function(){
+                const colors = ['red','blue','green','yellow','orange']
+                const random = colors[Math.floor(Math.random() * colors.length)]
+                // console.log(random)
+                body.style.backgroundColor = random
+            })
+        </script>
+    </body>
+</html>

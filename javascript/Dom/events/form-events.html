@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Form Events</title>
+    </head>
+    <body>
+        <form>
+            <label for="username">Name</label>
+            <input type="text" name="username" id="username"> <br>
+
+            <input type="submit">
+        </form>
+
+        <script>
+            // function nameFocus(){
+            //     console.log('Focus Event fired')
+            // }
+            const usernameInput = document.querySelector('#username')
+            usernameInput.addEventListener('focus', () => {
+                console.log('Focus Event Fires')
+            })
+            usernameInput.addEventListener('blur',()=>{
+                console.log('Blur Event Fires')
+            })
+            usernameInput.addEventListener('change',()=>{
+                console.log('change event happens')
+            })
+
+            const form = document.querySelector('form')
+            form.addEventListener('submit',(e)=>{
+                e.preventDefault()
+                console.log('Submit event occures',e)
+            })
+        </script>
+    </body>
+</html>

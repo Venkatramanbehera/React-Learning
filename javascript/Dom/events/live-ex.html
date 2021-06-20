@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact Manager</title>
+    </head>
+    <body>
+        <div id="root">
+            
+        </div>
+        
+        <script>
+            const root = document.querySelector('#root')
+            const h1Handle = document.createElement('h1')
+            const formEle = document.createElement('form')
+            const input = document.createElement('input')
+            const inputNum = document.createElement('input')
+            const button = document.createElement('button')
+            const br = document.createElement('br')
+
+            h1Handle.textContent = 'Contact Manager'
+            root.appendChild(h1Handle)
+
+            const ulHandle = document.createElement('ul')
+
+            const contacts = [
+                { id: 1, name: 'abhijit', mobile: '9876543211'},
+                { id: 2, name: 'sagar', mobile: '8765432112'},
+                { id: 3, name: 'sumit', mobile: '7654321123'}
+            ]
+
+            const h2Handle = document.createElement('h2')
+            h2Handle.textContent = `Listing Contacts - ${contacts.length}`
+            root.appendChild(h2Handle)
+            root.appendChild(formEle)
+            // formEle.setAttribute('onsubmit','submitForm(event)')
+            formEle.appendChild(input)
+            input.setAttribute('type','text')
+            input.setAttribute('name','contact')
+            input.setAttribute('placeholder','Enter Name')
+            formEle.appendChild(br)
+            formEle.appendChild(inputNum)
+            inputNum.setAttribute('type','text')
+            inputNum.setAttribute('name','number')
+            inputNum.setAttribute('placeholder','Enter Number')
+            
+            // formEle.appendChild(br)
+            formEle.appendChild(button)
+            
+            button.textContent = 'Add'
+            // button.insertBefore(br)
+
+            contacts.forEach(function(ele){
+                        const liHandle = document.createElement('li')
+                        liHandle.textContent = `${ele.name} - ${ele.mobile} `
+                        ulHandle.appendChild(liHandle)
+            })
+            root.appendChild(ulHandle)
+
+ 
+            input.addEventListener('keyup', function (e){
+                // ulHandle.textContent = ''
+                
+                while(ulHandle.firstChild){
+                    ulHandle.removeChild(ulHandle.firstChild)
+                }
+                // let lis = ulHandle.children
+                // for(let i=0; i<lis.length; i++){
+                //     ulHandle.removeChild(lis[i])
+                // }
+                const name = e.target.value
+                const result = contacts.filter(function(ele){
+                    return ele.name.includes(name)
+                })
+                
+                result.forEach(function(ele){
+                        const liHandle = document.createElement('li')
+                        liHandle.textContent = `${ele.name} - ${ele.mobile} `
+                        ulHandle.appendChild(liHandle)  
+                    })
+                root.appendChild(ulHandle)
+            })
+
+            formEle.addEventListener('submit',function(e){
+                e.preventDefault()
+                const nameF = e.target.contact.value
+                const numberF = e.target.number.value
+                // console.log(name)
+                // console.log(number)
+                let ids = contacts.length + 1
+                const obj = {
+                    id : ids,
+                    name : nameF,
+                    mobile : numberF
+                }
+                contacts.push(obj)
+                // console.log(contacts)
+                ulHandle.textContent = ''
+                contacts.forEach(function(ele){
+                        const liHandle = document.createElement('li')
+                        liHandle.textContent = `${ele.name} - ${ele.mobile} `
+                        ulHandle.appendChild(liHandle)  
+                    })
+            })
+            // function submitForm(e){
+            //     e.preventDefault()
+            //     const nameF = e.target.contact.value
+            //     const numberF = e.target.number.value
+            //     let ids = contacts.length + 1
+            //     const obj = {
+            //         id : ids,
+            //         name : nameF,
+            //         mobile : numberF
+            //     }
+            //     contacts.push(obj)
+            //     console.log(contacts)
+            //     ulHandle.textContent = ''
+            //     contacts.forEach(function(ele){
+            //             const liHandle = document.createElement('li')
+            //             liHandle.textContent = `${ele.name} - ${ele.mobile} `
+            //             ulHandle.appendChild(liHandle)  
+            //         })
+            // }
+            
+        </script>
+    </body>
+</html>

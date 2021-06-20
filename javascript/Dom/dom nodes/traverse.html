@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Get Element By Tag name</title>
+    </head>
+    <body>
+        <ul id="myTasks">
+            <li>Requirement</li>
+            <li>Development</li>
+            <li>Deployment</li>
+        </ul>
+        <script>
+            // const ulTag = document.getElementById('myTasks')
+            const ulTag = document.querySelector('#myTasks')
+            const firstTask = ulTag.firstElementChild
+            const lastTask = ulTag.lastElementChild
+            console.log(ulTag.children)
+            console.log('first element',ulTag.firstElementChild)
+            console.log('last element',ulTag.lastElementChild)
+
+            console.log(firstTask.nextElementSibling)
+            console.log(lastTask.previousElementSibling)
+        </script>
+    </body>
+</html>
