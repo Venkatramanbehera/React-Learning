@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Show info of selected user
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+           const url = 'https://jsonplaceholder.typicode.com/users'
+
+           const { useState , useEffect } = React 
+
+           function UsersSelect(props){
+               const [ data, setData ] = useState([])
+               const [ user, setUser ] = useState('')
+
+               const selectUser = (e) => {
+                   let resultStr
+                   const selectUserId = e.target.value
+            
+                   const result = data.find((ele) => {
+                       return ele.id == selectUserId
+                   })
+                   resultStr = ` ${ result.name } - ${ result.email } - ${ result.address.city } `
+                   setUser(resultStr)
+               }
+
+               useEffect(() => {
+                   axios.get(url)
+                   .then((result) => {
+                       setData(result.data)
+                    })
+               },[])
+               return(
+                   <div>
+                        <h1>Show info of selected user</h1>
+                        <select onChange={ selectUser }>
+                            <option value={ 0 }> Select User </option>
+                            {
+                                data.map((ele) => {
+                                    return <option key={ ele.id } value={ ele.id }> { ele.name } </option>
+                                })
+                            } 
+                             
+                        </select>
+                        {
+                            user ? <p>{ user }</p> : <p>select any user</p>
+                        }  
+                   </div>
+               )
+           } 
+           
+           ReactDOM.render(<UsersSelect/>,rootHandle)
+           
+        </script>
+    </body>
+</html>

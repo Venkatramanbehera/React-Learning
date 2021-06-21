@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Search User By Id 
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+
+           let url = 'https://jsonplaceholder.typicode.com/users/'
+
+           const { useState, useEffect } =React 
+           
+           function SearchUser(props){
+               const [ inputId, setInputId ] = useState('')
+
+               const handleChange = e => {
+                   const data = e.target.value
+                   setInputId(data)
+               }
+
+               const submitHandle = e => {
+                   e.preventDefault()
+               }
+
+               useEffect(() => {
+                   url += inputId
+                   axios.get(url)
+                   .then((res) => {
+                       console.log(res)
+                   })
+               },[inputId])
+
+               
+
+               return(
+                   <div>
+                        <form onSubmit={ submitHandle }>
+                            <input type="text" value={ inputId } onChange={ handleChange } placeholder="search id"/>    
+                            <input type="submit" value="Search"/>
+                        </form>
+                    </div>
+               )
+               
+           }
+           ReactDOM.render(<SearchUser/>,rootHandle)
+           
+        </script>
+    </body>
+</html>
