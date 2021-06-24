@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Todo's users 
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+           const userUrl = 'https://jsonplaceholder.typicode.com/users'
+
+           const { useState, useEffect } = React 
+           
+
+
+           const ListingTask = (props) => {
+                const { taskData } = props
+                const styleLine = { 'textDecoration' : 'line-through'}
+                return (
+                    <div>
+                        <h1>Listing Task</h1>
+                        <ul>
+                            {
+                                taskData.map((ele) => {
+                                    return <li key={ele.id} style={ ele.completed ? styleLine :null  }> { ele.title } </li>
+                                })
+                            }    
+                        </ul>    
+                    </div>
+                )
+           }
+           function App(props){
+               const url = 'https://jsonplaceholder.typicode.com/users'
+
+               const [ selectData, setSelectData ] = useState('')
+               const [ users, setUsers ] = useState([])
+
+               const [taskData, setTaskData ] = useState([])
+
+               const handleSelectData = (e) => {
+                   const data = e.target.value 
+                   setSelectData(data)
+
+                   const urlTodo = `https://jsonplaceholder.typicode.com/todos?userId=${data}`
+                   axios.get(urlTodo)
+                   .then((res) => {
+                    setTaskData(res.data)
+                   })
+                   
+               }
+
+               useEffect(() => {
+                   axios.get(url)
+                   .then((res) => {
+                       setUsers(res.data)
+                   })
+               },[])
+               return(
+                    <div>
+                          <label>User</label>  
+                          <select value={ selectData } onChange={ handleSelectData }>
+                            <option value=""> Select user</option>
+                            {
+                                users.map((ele,i) => {
+                                    return <option key={ i } value={ ele.id }>{ ele.name }</option>
+                                })
+                            }
+                          </select>
+                          {
+                              taskData.length > 0 && <ListingTask taskData={taskData}/>
+                          }
+                          
+                    </div>
+               )
+           }
+           
+           ReactDOM.render(<App/>, rootHandle)
+        </script>
+    </body>
+</html>

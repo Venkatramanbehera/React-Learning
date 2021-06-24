@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            User City 
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+
+           const { useState, useEffect } = React 
+           
+           const App = (props) => {
+            const [ latitude, setLatitude ] = useState('')
+            const [ longitude, setLongitude ] = useState('')
+
+            const [ address, setAddress ] = useState({})
+
+
+            useEffect(() => {
+                navigator.geolocation.getCurrentPosition(position => {
+                    setLatitude(position.coords.latitude)
+                    setLongitude(position.coords.longitude)
+                })
+            },[])
+
+            const submit = () => {
+                const api = `https://us1.locationiq.com/v1/reverse.php?key=pk.fefb854b50d577ddff51b0ca45945dc7&lat=${ latitude }&lon=${ longitude }&format=json`
+                axios.get(api)
+                .then((res) => {
+                    console.log(res.data.address)
+                    setAddress(res.data.address)
+                })
+            }
+
+            return (
+                <div>
+                    <h1>Geo Location</h1>
+                    <hr/>
+                    <h3>latitude - { latitude }</h3> 
+                    <h3>longitude - { longitude }</h3>
+                    { Object.keys(address).length > 0 && <h3>city - { address.state_district }</h3> }
+                    
+                    <button onClick = { submit }>Get Location</button>
+                </div>
+                )
+           }
+
+           ReactDOM.render(<App/>,rootHandle)
+           
+        </script>
+    </body>
+</html>

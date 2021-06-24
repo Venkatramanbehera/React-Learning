@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Search User By Email
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+
+           const url = 'https://jsonplaceholder.typicode.com/users'
+
+           const { useState, useEffect } =React 
+           
+           function SearchUserByEmail(props){
+               const [ inputEmail, setInputEmail ] = useState('')
+               const [ data, setData ] = useState({})
+               const [ error, setError ] = useState('')
+               const [ resultObj, setResultObj ] = useState({})
+
+               const handleChange = (e) => {
+                   const data = e.target.value
+                   setInputEmail(data)
+               }
+
+               const submitHandle = (e) => {
+                   e.preventDefault()
+                   const result = data.find((ele) => {
+                       return ele.email === inputEmail
+                   })
+                   if(result === undefined){
+                       setError('record not found')
+                       setResultObj({})
+                   }else{
+                    setResultObj(result)
+                    setError('')
+                   }
+               }
+
+               useEffect( () => {
+                   axios.get(url)
+                   .then((res) => {
+                        setData( res.data )
+                   })
+               }, [] )
+
+               
+               return(
+                   <div>
+                        <form onSubmit={ submitHandle }>
+                            <input type="text" value={ inputEmail } name="name" onChange={ handleChange } placeholder="search email"/>    
+                            <input type="submit" value="Search"/>
+                        </form>
+                        {
+                            Object.keys(resultObj).length > 0 ? <h1>{ resultObj.name }-{ resultObj.email}-{resultObj.address.city}</h1> : <p style = {{ color:'red'}}>{ error }</p>
+                        }
+                    </div>
+               )
+               
+           }
+           ReactDOM.render(<SearchUserByEmail/>,rootHandle)
+           
+        </script>
+    </body>
+</html>

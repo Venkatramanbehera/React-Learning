@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Todo's users completed functionality
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+           
+
+           const { useState, useEffect } = React
+           
+           const AllTask = (props) => {
+               const { todoData } = props
+               return(
+                   <ul>
+                        {
+                            todoData.map((ele) => {
+                                return <li key={ ele.id }>{ ele.title }</li>
+                            })
+                        }
+                    </ul>
+               )
+           }
+
+           const CompletedTask = (props) => {
+               const { todoData } = props
+                return(
+                    <ul>
+                        {
+                            todoData.map((ele) => {
+                                if( ele.completed ){
+                                    return <li key={ele.id}><s>{ ele.title }</s></li>
+                                }    
+                            })
+                        }    
+                    </ul>
+                )
+           }
+
+           const ListingTask = (props) => {
+               const [ checkBox, setCheckBox ] = useState(false)
+               
+               const { todoData } = props
+               console.log( todoData )
+
+               const toggle = () => {
+                   setCheckBox(!checkBox)
+               }
+
+               return (
+                   <div>
+                        <h1>Listing Task</h1>
+                        <input type="checkbox" name="" value={ false } onChange={ toggle }/> Completed
+                        
+                        {
+                            checkBox ? <CompletedTask todoData={ todoData } /> : <AllTask todoData={ todoData }/>
+                        }
+                    </div>
+               )
+           }
+           
+           function App(props){
+
+            const userUrl = 'https://jsonplaceholder.typicode.com/users'
+
+            const [ user, setUser ] = useState([])
+            const [ userValue, setUserValue ] = useState('')
+            const [ todoData, setTodoData ] = useState([])
+
+            const handleUserValue = ( e ) => {
+                const data = e.target.value
+                setUserValue(data)
+                const todo = ` https://jsonplaceholder.typicode.com/todos?userId=${data}`
+                axios.get(todo)
+                .then((result) => {
+                    setTodoData(result.data)
+                })
+            }
+
+            useEffect(() => {
+                axios.get( userUrl )
+                .then((res) => {
+                    const result = res.data
+                    setUser(result)
+                })
+            },[])
+
+
+            return(
+                <div>
+                    <label>Users</label>
+                    <select value={ userValue } onChange={ handleUserValue }>
+                        <option value="">select user</option>  
+                        {
+                            user.map((usr) => {
+                                return <option key={ usr.id } value={ usr.id }> { usr.name } </option>
+                            })
+                        }  
+                    </select>
+                    {
+                        todoData.length > 0 && <ListingTask todoData={ todoData }/>
+                    }   
+                    
+                </div>
+            )
+           }
+           
+           ReactDOM.render(<App/>, rootHandle)
+        </script>
+    </body>
+</html>

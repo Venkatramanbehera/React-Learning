@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Sample Title 
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+           
+           const { useState } = React 
+
+           const App = (props) => {
+
+            const [ sliderValue , setSliderValue ] = useState(0)
+            const [ inrValue, setInrValue ] = useState(0)
+
+            const handleSlider = (e) => {
+                const data = e.target.value 
+                setSliderValue(data)
+                console.log(data)
+                const url = `http://api.exchangeratesapi.io/v1/convert?access_key=1ee5692011f35274b946788a3f03a77c&from=USD&to=INR&amount=${ data }`
+                axios.get(url)
+                .then((res) => {
+                    console.log(res)
+                    setInrValue(res.info.rate)
+                }).catch((err) => {
+                    console.log(err)
+                })
+            }
+            return(
+                <div>
+                    <h1>Currency Converter</h1>
+                    <hr/>
+                    <h2>USD - { sliderValue }</h2>
+                    <h2>INR - { inrValue }</h2>
+                    <input type="range" min='1' max='100' value={ sliderValue } onChange={ handleSlider }/>
+                    <p>Note 1USD = 74.39 </p>
+                </div>
+            )
+           }
+
+           ReactDOM.render(<App/>, rootHandle)
+           
+        </script>
+    </body>
+</html>
+

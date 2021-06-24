@@ -18,12 +18,15 @@
         <script type="text/babel">
            const rootHandle = document.getElementById('root')
 
-           let url = 'https://jsonplaceholder.typicode.com/users/'
 
            const { useState, useEffect } =React 
            
            function SearchUser(props){
+
+               let url = 'https://jsonplaceholder.typicode.com/users/'
                const [ inputId, setInputId ] = useState('')
+               const [ resultObj, setResultObj ] = useState({})
+               const [ error, setError ] = useState('')
 
                const handleChange = e => {
                    const data = e.target.value
@@ -32,24 +35,30 @@
 
                const submitHandle = e => {
                    e.preventDefault()
-               }
-
-               useEffect(() => {
-                   url += inputId
-                   axios.get(url)
+                   const newUrl = `${ url }${ inputId }`
+                   axios.get(newUrl)
                    .then((res) => {
-                       console.log(res)
+                       console.log(res.data)
+                       setResultObj(res.data)
+                       setError('')
+                   }).catch((error) => {
+                       setResultObj({})
+                       setError('Record Not Found')
                    })
-               },[inputId])
-
-               
+               }
 
                return(
                    <div>
                         <form onSubmit={ submitHandle }>
-                            <input type="text" value={ inputId } onChange={ handleChange } placeholder="search id"/>    
+                            <input type="text" value={ inputId } name="name" onChange={ handleChange } placeholder="search id"/>    
                             <input type="submit" value="Search"/>
                         </form>
+                        { 
+                            Object.keys(resultObj).length > 0 ? <h1>{ resultObj.name } - { resultObj.email } - { resultObj.address.city }</h1> : <p style={{ color : 'red'}}>{ error }</p>
+                        }
+                        {
+
+                        }
                     </div>
                )
                
