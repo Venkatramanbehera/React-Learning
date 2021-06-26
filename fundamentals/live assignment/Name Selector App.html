@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Name Selector App
+        </title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type="text/babel">
+           const rootHandle = document.getElementById('root')
+
+           const { useState } = React
+
+           const SelectName = (props) => {
+            const { randomValueS } = props
+            return (
+                <div>
+                    { randomValueS && <h2>Selected - { randomValueS }</h2> }  
+                </div>
+            )
+           }
+        //    child component
+
+           const ListingElement = props => {
+
+            const { names,generateAndRemove } = props
+
+            const generate = () => {
+                generateAndRemove()
+            }
+
+            return (
+                <div>
+                    <h1>Names - { names.length } </h1>
+                    <ul>
+                        { names.map((ele,index) => {
+                            return <li key={ index }>{ ele }</li>
+                        }) }    
+                    </ul>
+                    <button onClick={ generate }>choose</button> <br/> 
+                </div>
+            )
+           }
+           
+        //    parent component
+           function App(props){
+            const [ names, setNames ] = useState('')
+            const [ namesArr, setNamesArr ] = useState([])
+            const [ randomValueS, setRandomValueS ] = useState('')
+
+            const textAreaHandle = (e) => {
+                const data = e.target.value 
+                setNames(data)
+            }
+
+            const handleSubmit = (e) => {
+                e.preventDefault()
+                const arr = names.split(',')
+                setNamesArr(arr)
+            }
+
+            const generateAndRemove = (name) => {
+                const id = Math.floor( Math.random() * namesArr.length )
+                setRandomValueS(namesArr[id] )
+
+                const result = namesArr.filter((ele,i) => {
+                    return i !== id
+                })
+
+                console.log(result)
+                setNamesArr(result)
+            }
+
+            return (
+                <div>
+                    <h1>Name Selector App</h1>
+                    <form onSubmit={ handleSubmit } >
+                        <textarea 
+                            value={ names }
+                            onChange={ textAreaHandle } 
+                            cols="30" 
+                            rows="10" 
+                            placeholder="Enter Name">
+                        </textarea> <br/>
+
+                        <button>Submit</button>
+                        
+                    </form>
+                    {
+                            namesArr.length > 0 && 
+                            <ListingElement 
+                                names={namesArr} 
+                                generateAndRemove={ generateAndRemove }
+                            />
+                    }
+
+                    { namesArr.length > 0 && <SelectName randomValueS={ randomValueS }/> }
+                    
+                </div>
+            )
+           }
+
+           ReactDOM.render(<App/>, rootHandle)
+        </script>
+    </body>
+</html>
